@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1F911BA2-A429-403C-B989-6AF1188C427D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ProjectBase.Utils</RootNamespace>
+    <AssemblyName>ProjectBase.Utils</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Adapter\Mode.cs" />
+    <Compile Include="Adapter\QueryStringAdapter.cs" />
+    <Compile Include="Adapter\SessionAdapter.cs" />
+    <Compile Include="Commons\DataInterfaces\ISendEmail.cs" />
+    <Compile Include="Commons\DataInterfaces\IUtility.cs" />
+    <Compile Include="Commons\SendEmail.cs" />
+    <Compile Include="Commons\UserAccount.cs" />
+    <Compile Include="Components\DataInterfaces\IValidationExpression.cs" />
+    <Compile Include="Components\DataInterfaces\IFormat.cs" />
+    <Compile Include="Components\DateTimeInterval.cs" />
+    <Compile Include="Components\DateTimes.cs" />
+    <Compile Include="Components\EmailAddress.cs" />
+    <Compile Include="Components\IdentityNumber.cs" />
+    <Compile Include="Components\MobilephoneNumber.cs" />
+    <Compile Include="Components\PostCode.cs" />
+    <Compile Include="Components\TelephoneNumber.cs" />
+    <Compile Include="Components\ValueValidation.cs" />
+    <Compile Include="Commons\EntityBase.cs" />
+    <Compile Include="Commons\MasterEntity.cs" />
+    <Compile Include="Commons\MultiLanguageEntity.cs" />
+    <Compile Include="Components\Format.cs" />
+    <Compile Include="Components\ValidationExpression.cs" />
+    <Compile Include="Components\DataInterfaces\IDateTimeInterval.cs" />
+    <Compile Include="Components\DataInterfaces\IIdentification.cs" />
+    <Compile Include="Components\DataInterfaces\IValueValidation.cs" />
+    <Compile Include="Commons\DataInterfaces\IEntityBase.cs" />
+    <Compile Include="Commons\DataInterfaces\IMasterEntity.cs" />
+    <Compile Include="Commons\DataInterfaces\IMultiLanguageEntity.cs" />
+    <Compile Include="Commons\DataInterfaces\ITransactionLog.cs" />
+    <Compile Include="Commons\DataInterfaces\IUserAccount.cs" />
+    <Compile Include="Factories\ComponentFactory.cs" />
+    <Compile Include="Factories\DataInterfaces\IComponentFactory.cs" />
+    <Compile Include="Helper\EnumHelper.cs" />
+    <Compile Include="Helper\PropertyHelper.cs" />
+    <Compile Include="JScriptBuilder\AlertBuilder.cs" />
+    <Compile Include="JScriptBuilder\CloseWindowBuilder.cs" />
+    <Compile Include="JScriptBuilder\ScriptBlockBuilder.cs" />
+    <Compile Include="JScriptBuilder\FunctionBuilder.cs" />
+    <Compile Include="JScriptBuilder\DialogBuilder.cs" />
+    <Compile Include="JScriptBuilder\JavaScriptBuilder.cs" />
+    <Compile Include="JScriptBuilder\OpenWindowBuilder.cs" />
+    <Compile Include="JScriptBuilder\RedirectBuilder.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Commons\Utility.cs" />
+    <Compile Include="Provider\SmartSiteMapProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

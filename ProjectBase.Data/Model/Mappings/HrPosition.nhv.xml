@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<nhv-mapping assembly="ProjectBase.Data" namespace="ProjectBase.Data.Model" xmlns="urn:nhibernate-validator-1.0">
+	<class name="HrPosition">
+		<property name="Id">
+			<not-null />
+		</property>
+	</class>
+</nhv-mapping>
