@@ -7,11 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProjectBase.Test
-{
-
-
-    public partial class _Default
-    {
+namespace ProjectBase.Test {
+    
+    
+    public partial class _Default {
     }
 }
