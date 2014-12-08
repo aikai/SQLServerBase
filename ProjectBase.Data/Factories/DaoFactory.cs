@@ -66,16 +66,6 @@ namespace ProjectBase.Data
             return new HrPositionDao();
         }
 
-        public IHrDepartDao GetHrDepartDao()
-        {
-            return new HrDepartDao();
-        }
-
-        public IUaeProjectManageDao GetUaeProjectManageDao()
-        {
-            return new UaeProjectManageDao();
-        }
-
         #region Inline DAO implementations
         /// <summary>
         /// Concrete DAO for accessing instances of <see cref="Customer" /> from DB.

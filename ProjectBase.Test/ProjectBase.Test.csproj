@@ -38,7 +38,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\references\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Spring.Core">
+      <HintPath>..\references\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Web">
+      <HintPath>..\references\Spring.Web.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
@@ -131,6 +140,7 @@
     <Content Include="App_Data\JobOnline_log.ldf">
       <DependentUpon>JobOnline.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Pages\ProvinceTest.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -244,6 +254,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Globals.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_Pages\ProvinceTest.aspx.cs">
+      <DependentUpon>ProvinceTest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Pages\ProvinceTest.aspx.designer.cs">
+      <DependentUpon>ProvinceTest.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="About.aspx.cs">
@@ -331,6 +348,24 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectBase.Core\ProjectBase.Core.csproj">
+      <Project>{97c50a41-04a0-4424-bda6-5aa630cffd11}</Project>
+      <Name>ProjectBase.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectBase.Data\ProjectBase.Data.csproj">
+      <Project>{5587c9b1-6608-4f2a-8e76-2a12b15afbc7}</Project>
+      <Name>ProjectBase.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectBase.Utils\ProjectBase.Utils.csproj">
+      <Project>{1f911ba2-a429-403c-b989-6af1188c427d}</Project>
+      <Name>ProjectBase.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectBase.Web\ProjectBase.Web.csproj">
+      <Project>{91870421-b465-48ad-8eef-1e5ce57b39cb}</Project>
+      <Name>ProjectBase.Web</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

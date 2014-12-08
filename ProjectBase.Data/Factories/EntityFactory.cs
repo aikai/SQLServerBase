@@ -71,16 +71,6 @@ namespace ProjectBase.Data
             return new HrPosition();
         }
 
-        public IHrDepart CreateHrDepart()
-        {
-            return new HrDepart();
-        }
-
-        public IUaeProjectManage CreateUaeProjectManage()
-        {
-            return new UaeProjectManage();
-        }
-
         #region Inline Entity implementations
         /// <summary>
         /// Concrete entity for accessing instances of <see cref="Customs" /> from DB.

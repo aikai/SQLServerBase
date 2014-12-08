@@ -44,21 +44,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dao\IUaeProjectManageDao.cs" />
+    <Compile Include="IDao.cs" />
     <Compile Include="Model\Components\IAddress.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\Entities\IHrPosition.cs" />
-    <Compile Include="Model\Entities\IHrDepart.cs" />
     <Compile Include="Model\Entities\IAmphoe.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\Entities\IProvince.cs" />
     <Compile Include="Model\Entities\ITambol.cs" />
-    <Compile Include="Model\Entities\IUaeProjectManage.cs" />
     <Compile Include="Factories\IDaoFactory.cs" />
     <Compile Include="Factories\IEntityFactory.cs" />
-    <Compile Include="IDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -67,7 +64,9 @@
       <Name>ProjectBase.Utils</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Dao\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

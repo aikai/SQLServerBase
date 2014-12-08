@@ -1,66 +1,112 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using ProjectBase.Core;
 using ProjectBase.Core.Model;
-using NHibernate;
+using ProjectBase.Data.Model;
+using ProjectBase.Utils;
 
 namespace ProjectBase.Data
 {
-    public class ProvinceDao : NHibernateDao<IProvince>, IProvinceDao
+    public class ProvinceDao : ProviderDao<IProvince>, IProvinceDao
     {
-        protected override IQueryOver<IProvince, IProvince> BuildId(IQueryOver<IProvince, IProvince> query, object id)
+        protected override void BuildQueryAll()
         {
-            var _id = new Guid(Convert.ToString(id));
-
-            return base.BuildId(query, id).Where(x => x.Id == _id);
+            sb.Append("SELECT [Id], [Name], [EnglishName], [CreateBy], [CreateDate], [UpdateBy], [UpdateDate]");
+            sb.Append(" FROM [job_Province]");
         }
 
-        protected override IQueryOver<IProvince, IProvince> BuildInIds(IQueryOver<IProvince, IProvince> query, object[] ids)
+        protected override void BuildQuerySave(IProvince entity, DbCommand cmd)
         {
-            var _ids = new List<string>();
+            VerifyAvailableIsNull(entity);
 
-            ids.ToList().ForEach(x => _ids.Add(Convert.ToString(x)));
+            sb.Append("INSERT INTO [job_Province] ([Id], [Name], [EnglishName], [CreateBy], [CreateDate], [UpdateBy], [UpdateDate])");
+            sb.Append(" VALUES(@Id, @Name, @EnglishName, @CreateBy, @CreateDate, @UpdateBy, @UpdateDate)");
 
-            return base.BuildInIds(query, ids).WhereRestrictionOn(x => x.Id).IsIn(_ids.ToArray());
+            var id = cmd.CreateParameter();
+            id.ParameterName = "@Id";
+            id.Value = entity.Id;
+
+            cmd.Parameters.Add(id);
+
+            var name = cmd.CreateParameter();
+            name.ParameterName = "@Name";
+            name.Value = entity.ThaiName;
+
+            cmd.Parameters.Add(name);
+
+            var engName = cmd.CreateParameter();
+            engName.ParameterName = "@EnglishName";
+            engName.Value = entity.EnglishName;
+
+            cmd.Parameters.Add(engName);
+
+            var createBy = cmd.CreateParameter();
+            createBy.ParameterName = "@CreateBy";
+            createBy.Value = entity.CreateBy;
+
+            cmd.Parameters.Add(createBy);
+
+            var createDate = cmd.CreateParameter();
+            createDate.ParameterName = "@CreateDate";
+            createDate.Value = entity.CreateDate;
+
+            cmd.Parameters.Add(createDate);
+
+            var updateBy = cmd.CreateParameter();
+            updateBy.ParameterName = "@UpdateBy";
+            updateBy.Value = entity.UpdateBy;
+
+            cmd.Parameters.Add(updateBy);
+
+            var updateDate = cmd.CreateParameter();
+            updateDate.ParameterName = "@UpdateDate";
+            updateDate.Value = entity.UpdateDate;
+
+            cmd.Parameters.Add(updateDate);
         }
 
-        protected override IQueryOver<IProvince, IProvince> BuildSort(IQueryOver<IProvince, IProvince> query)
+        protected override IProvince GetEntity(System.Data.IDataReader dr)
         {
-            return base.BuildSort(query).OrderBy(x => x.Id).Asc;
-        }
+            //System.Reflection.PropertyInfo[] propInfos = typeof(IProvince).GetProperties();
+            //propInfos.ToList().ForEach(p => 
+            //Console.WriteLine(string.Format("Property name: {0}", p.Name));
 
-        public override void Update(IProvince entity)
-        {
-            try
-            {
-                if (VerifyAvailableIsNull(entity)) return;
+            var entity = EntityFactory.Instance.CreateProvince();
+            var props = typeof(IProvince).GetProperties();
 
-                Update(delegate(ISession s)
-                {
-                    s.Clear();
-                    s.Update(s.Merge(entity));
-                });
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+            entity.Id = (Guid)SetDbNullToNull(dr[((MemberInfo)(props[0])).Name]);
+            entity.ThaiName = (string)SetDbNullToNull(dr[((MemberInfo)(props[1])).Name]);
+            entity.EnglishName = (string)SetDbNullToNull(dr[((MemberInfo)(props[2])).Name]);
+            entity.CreateBy = (string)SetDbNullToNull(dr[((MemberInfo)(props[3])).Name]);
 
-        public override void Delete(IProvince entity)
-        {
-            try
-            {
-                if (VerifyAvailableIsNull(entity)) return;
+            var dateTimeCreate = ComponentFactory.Instance.CreateDateTime();
+            var createDate = (DateTime?)SetDbNullToNull(dr[((MemberInfo)(props[4])).Name]);
 
-                Update(delegate(ISession s) { s.Delete(s.Merge(entity)); });
-            }
-            catch (Exception ex)
+            if (createDate.HasValue)
             {
-                throw ex;
+                dateTimeCreate.Value = createDate;
+                dateTimeCreate.Validate();
             }
+
+            entity.CreateDate = dateTimeCreate;
+            entity.UpdateBy = (string)SetDbNullToNull(dr[((MemberInfo)(props[5])).Name]);
+
+            var dateTimeUpdate = ComponentFactory.Instance.CreateDateTime();
+            var updateDate = (DateTime?)SetDbNullToNull(dr[((MemberInfo)(props[6])).Name]);
+
+            if (updateDate.HasValue)
+            {
+                dateTimeUpdate.Value = updateDate;
+                dateTimeUpdate.Validate();
+            }
+
+            entity.UpdateDate = dateTimeUpdate;
+
+            return entity;
         }
     }
 }

@@ -9,11 +9,20 @@ namespace ProjectBase.Core.Model
 {
     public interface IHrPosition
     {
-        long Id { get; set; }
-        string PsTname { get; set; }
-        string PsEname { get; set; }
-        string PsComment { get; set; }
-        string PsMn { get; set; }
-        string PsIden { get; set; }
+        Guid Id { get; set; }
+
+        string ThaiName { get; set; }
+        string EnglishName { get; set; }
+
+        #region TransactionLog
+        string CreateBy { get; set; }
+        IValueValidation CreateDate { get; set; }
+        string UpdateBy { get; set; }
+        IValueValidation UpdateDate { get; set; }
+        #endregion
+
+        bool Equals(object obj);
+        bool Equals(IHrPosition obj);
+        int GetHashCode();
     }
 }

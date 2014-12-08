@@ -9,9 +9,9 @@ namespace ProjectBase.Utils.Commons
     public interface ITransactionLog
     {
         #region ITransactionLog Members
-        IUserAccount CreateBy { get; set; }
+        string CreateBy { get; set; }
         IValueValidation CreateDate { get; set; }
-        IUserAccount UpdateBy { get; set; }
+        string UpdateBy { get; set; }
         IValueValidation UpdateDate { get; set; }
         #endregion
     }

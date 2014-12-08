@@ -12,14 +12,12 @@ namespace ProjectBase.Core.Model
         Guid Id { get; set; }
         string ThaiName { get; set; }
         string EnglishName { get; set; }
-        IUserAccount CreateBy { get; set; }
+        string CreateBy { get; set; }
         IValueValidation CreateDate { get; set; }
-        IUserAccount UpdateBy { get; set; }
+        string UpdateBy { get; set; }
         IValueValidation UpdateDate { get; set; }
 
         IProvince Province { get; set; }
-
-        Iesi.Collections.Generic.ISet<ITambol> Tambols { get; set; }
 
         bool Equals(object obj);
         bool Equals(IAmphoe obj);

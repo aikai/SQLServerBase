@@ -13,9 +13,9 @@ namespace ProjectBase.Core.Model
         string ThaiName { get; set; }
         string EnglishName { get; set; }
         IValueValidation PostCode { get; set; }
-        IUserAccount CreateBy { get; set; }
+        string CreateBy { get; set; }
         IValueValidation CreateDate { get; set; }
-        IUserAccount UpdateBy { get; set; }
+        string UpdateBy { get; set; }
         IValueValidation UpdateDate { get; set; }
 
         IAmphoe Amphoe { get; set; }

@@ -31,16 +31,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\references\Iesi.Collections.dll</HintPath>
+    <Reference Include="CATCommon3.5">
+      <HintPath>D:\SVN_Checkout\Integrated\UAE\ConsumerService\UI\Oper\bin\CATCommon3.5.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\references\NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate.Validator">
-      <HintPath>..\references\NHibernate.Validator.dll</HintPath>
+    <Reference Include="CATWeb3.5">
+      <HintPath>D:\SVN_Checkout\Integrated\UAE\ConsumerService\UI\Oper\bin\CATWeb3.5.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -53,52 +48,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dao\AmphoeDao.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Config.cs" />
+    <Compile Include="Dao\AmphoeDao.cs" />
     <Compile Include="Dao\HrPositionDao.cs" />
-    <Compile Include="Dao\HrDepartDao.cs" />
-    <Compile Include="Dao\UaeProjectManageDao.cs" />
-    <Compile Include="Dao\ProvinceDao.cs">
+    <Compile Include="Dao\ProvinceDao.cs" />
+    <Compile Include="Dao\TambolDao.cs" />
+    <Compile Include="Model\Components\Address.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Dao\TambolDao.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Factories\DaoFactory.cs" />
-    <Compile Include="Factories\EntityFactory.cs" />
-    <Compile Include="Model\Components\Address.cs" />
     <Compile Include="Model\Entities\Amphoe.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\Entities\HrDepart.cs" />
-    <Compile Include="Model\Entities\HrPosition.cs" />
+    <Compile Include="Model\Entities\HrPosition.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Model\Entities\Province.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\Entities\Tambol.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\Entities\UaeProjectManage.cs" />
-    <Compile Include="Model\Validation.cs" />
-    <Compile Include="NHibernateDao.cs" />
+    <Compile Include="ProviderDao.cs" />
+    <Compile Include="Factories\DaoFactory.cs" />
+    <Compile Include="Factories\EntityFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SessionManager.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="hibernate.cfg.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <EmbeddedResource Include="Model\Mappings\Province.hbm.xml" />
-    <EmbeddedResource Include="Model\Mappings\Province.nhv.xml" />
-    <EmbeddedResource Include="Model\Mappings\HrDepart.hbm.xml" />
-    <EmbeddedResource Include="Model\Mappings\HrDepart.nhv.xml" />
-    <EmbeddedResource Include="Model\Mappings\HrPosition.hbm.xml" />
-    <EmbeddedResource Include="Model\Mappings\HrPosition.nhv.xml" />
-    <Content Include="nhvalidator.cfg.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProjectBase.Core\ProjectBase.Core.csproj">
@@ -110,18 +83,7 @@
       <Name>ProjectBase.Utils</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Model\Mappings\Amphoe.hbm.xml" />
-    <EmbeddedResource Include="Model\Mappings\Amphoe.nhv.xml" />
-    <EmbeddedResource Include="Model\Mappings\Tambol.hbm.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Model\Mappings\Tambol.nhv.xml" />
-    <EmbeddedResource Include="Model\Mappings\UaeProjectManage.hbm.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Model\Mappings\UaeProjectManage.nhv.xml" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

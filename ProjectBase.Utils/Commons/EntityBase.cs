@@ -20,9 +20,9 @@ namespace ProjectBase.Utils.Commons
         #endregion
 
         #region ITransactionLog Members
-        public virtual IUserAccount CreateBy { get; set; }
+        public virtual string CreateBy { get; set; }
         public virtual IValueValidation CreateDate { get; set; }
-        public virtual IUserAccount UpdateBy { get; set; }
+        public virtual string UpdateBy { get; set; }
         public virtual IValueValidation UpdateDate { get; set; }
         #endregion
 
