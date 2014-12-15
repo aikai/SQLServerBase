@@ -13,9 +13,9 @@ namespace ProjectBase.Core.Model
         string ThaiName { get; set; }
         string EnglishName { get; set; }
         string CreateBy { get; set; }
-        IValueValidation CreateDate { get; set; }
+        DateTime CreateDate { get; set; }
         string UpdateBy { get; set; }
-        IValueValidation UpdateDate { get; set; }
+        DateTime UpdateDate { get; set; }
 
         IProvince Province { get; set; }
 

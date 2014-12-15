@@ -15,58 +15,149 @@ namespace ProjectBase.Data
     {
         protected override void BuildQueryAll()
         {
-            sb.Append("SELECT [Id], [Name], [EnglishName], [CreateBy], [CreateDate], [UpdateBy], [UpdateDate]");
+            sb.Append("SELECT [Id], [Name], [EnglishName], [ShortName], [CreateBy], [CreateDate], [UpdateBy], [UpdateDate]");
             sb.Append(" FROM [job_Province]");
+        }
+
+        protected override void BuildQueryId(object id, DbCommand cmd)
+        {
+            BuildQueryAll();
+
+            sb.Append(" WHERE [Id] = @Id");
+
+            var para = cmd.CreateParameter();
+            para.ParameterName = "@Id";
+            para.Value = new Guid(Convert.ToString(id));
+
+            cmd.Parameters.Add(para);
         }
 
         protected override void BuildQuerySave(IProvince entity, DbCommand cmd)
         {
             VerifyAvailableIsNull(entity);
 
-            sb.Append("INSERT INTO [job_Province] ([Id], [Name], [EnglishName], [CreateBy], [CreateDate], [UpdateBy], [UpdateDate])");
-            sb.Append(" VALUES(@Id, @Name, @EnglishName, @CreateBy, @CreateDate, @UpdateBy, @UpdateDate)");
+            sb.Append("INSERT INTO [job_Province] ([Id], [Name], [EnglishName], [ShortName], [CreateBy], [CreateDate], [UpdateBy], [UpdateDate])");
+            //sb.Append(" VALUES(@Id, @Name, @EnglishName, @ShortName, @CreateBy, @CreateDate, @UpdateBy, @UpdateDate)");
+            sb.Append(" VALUES(@Id, @Name, @EnglishName, @ShortName, @CreateBy, @CreateDate, null, null)");
 
-            var id = cmd.CreateParameter();
-            id.ParameterName = "@Id";
-            id.Value = entity.Id;
+            var para = cmd.CreateParameter();
+            para.ParameterName = "@Id";
+            para.Value = Guid.NewGuid();
 
-            cmd.Parameters.Add(id);
+            cmd.Parameters.Add(para);
 
-            var name = cmd.CreateParameter();
-            name.ParameterName = "@Name";
-            name.Value = entity.ThaiName;
+            para = cmd.CreateParameter();
+            para.ParameterName = "@Name";
+            para.Value = entity.ThaiName;
 
-            cmd.Parameters.Add(name);
+            cmd.Parameters.Add(para);
 
-            var engName = cmd.CreateParameter();
-            engName.ParameterName = "@EnglishName";
-            engName.Value = entity.EnglishName;
+            para = cmd.CreateParameter();
+            para.ParameterName = "@EnglishName";
+            para.Value = entity.EnglishName;
 
-            cmd.Parameters.Add(engName);
+            cmd.Parameters.Add(para);
 
-            var createBy = cmd.CreateParameter();
-            createBy.ParameterName = "@CreateBy";
-            createBy.Value = entity.CreateBy;
+            para = cmd.CreateParameter();
+            para.ParameterName = "@ShortName";
+            para.Value = entity.ShortName;
 
-            cmd.Parameters.Add(createBy);
+            cmd.Parameters.Add(para);
 
-            var createDate = cmd.CreateParameter();
-            createDate.ParameterName = "@CreateDate";
-            createDate.Value = entity.CreateDate;
+            para = cmd.CreateParameter();
+            para.ParameterName = "@CreateBy";
+            para.Value = entity.CreateBy;
 
-            cmd.Parameters.Add(createDate);
+            cmd.Parameters.Add(para);
 
-            var updateBy = cmd.CreateParameter();
-            updateBy.ParameterName = "@UpdateBy";
-            updateBy.Value = entity.UpdateBy;
+            para = cmd.CreateParameter();
+            para.ParameterName = "@CreateDate";
+            para.Value = entity.CreateDate;
 
-            cmd.Parameters.Add(updateBy);
+            cmd.Parameters.Add(para);
 
-            var updateDate = cmd.CreateParameter();
-            updateDate.ParameterName = "@UpdateDate";
-            updateDate.Value = entity.UpdateDate;
+            //para = cmd.CreateParameter();
+            //para.ParameterName = "@UpdateBy";
+            //para.Value = entity.UpdateBy;
 
-            cmd.Parameters.Add(updateDate);
+            //cmd.Parameters.Add(para);
+
+            //para = cmd.CreateParameter();
+            //para.ParameterName = "@UpdateDate";
+            //para.Value = entity.UpdateDate;
+
+            //cmd.Parameters.Add(para);
+        }
+
+        protected override void BuildQueryUpdate(IProvince entity, DbCommand cmd)
+        {
+            VerifyAvailableIsNull(entity);
+
+            sb.Append("UPDATE [job_Province]");
+            sb.Append(" SET [Id] = @Id, [Name] = @Name, [EnglishName] = @EnglishName, [ShortName] = @ShortName,");
+            sb.Append(" [CreateBy] = @CreateBy, [CreateDate] = @CreateDate, [UpdateBy] = @UpdateBy, [UpdateDate] = @UpdateDate");
+
+            var para = cmd.CreateParameter();
+            para.ParameterName = "@Id";
+            para.Value = Guid.NewGuid();
+
+            cmd.Parameters.Add(para);
+
+            para = cmd.CreateParameter();
+            para.ParameterName = "@Name";
+            para.Value = entity.ThaiName;
+
+            cmd.Parameters.Add(para);
+
+            para = cmd.CreateParameter();
+            para.ParameterName = "@EnglishName";
+            para.Value = entity.EnglishName;
+
+            cmd.Parameters.Add(para);
+
+            para = cmd.CreateParameter();
+            para.ParameterName = "@ShortName";
+            para.Value = entity.ShortName;
+
+            cmd.Parameters.Add(para);
+
+            para = cmd.CreateParameter();
+            para.ParameterName = "@CreateBy";
+            para.Value = entity.CreateBy;
+
+            cmd.Parameters.Add(para);
+
+            para = cmd.CreateParameter();
+            para.ParameterName = "@CreateDate";
+            para.Value = entity.CreateDate;
+
+            cmd.Parameters.Add(para);
+
+            para = cmd.CreateParameter();
+            para.ParameterName = "@UpdateBy";
+            para.Value = entity.UpdateBy;
+
+            cmd.Parameters.Add(para);
+
+            para = cmd.CreateParameter();
+            para.ParameterName = "@UpdateDate";
+            para.Value = entity.UpdateDate;
+
+            cmd.Parameters.Add(para);
+        }
+
+        protected override void BuildQueryDelete(IProvince entity, DbCommand cmd)
+        {
+            VerifyAvailableIsNull(entity);
+
+            sb.Append("DELETE FROM [job_Province]");
+            sb.Append(" WHERE [Id] = @Id");
+
+            var para = cmd.CreateParameter();
+            para.ParameterName = "@Id";
+            para.Value = Guid.NewGuid();
+
+            cmd.Parameters.Add(para);
         }
 
         protected override IProvince GetEntity(System.Data.IDataReader dr)
@@ -76,35 +167,32 @@ namespace ProjectBase.Data
             //Console.WriteLine(string.Format("Property name: {0}", p.Name));
 
             var entity = EntityFactory.Instance.CreateProvince();
-            var props = typeof(IProvince).GetProperties();
+            //var props = typeof(IProvince).GetProperties();
 
-            entity.Id = (Guid)SetDbNullToNull(dr[((MemberInfo)(props[0])).Name]);
-            entity.ThaiName = (string)SetDbNullToNull(dr[((MemberInfo)(props[1])).Name]);
-            entity.EnglishName = (string)SetDbNullToNull(dr[((MemberInfo)(props[2])).Name]);
-            entity.CreateBy = (string)SetDbNullToNull(dr[((MemberInfo)(props[3])).Name]);
+            //entity.Id = (Guid)SetDbNullToNull(dr[((MemberInfo)(props[0])).Name]);
 
-            var dateTimeCreate = ComponentFactory.Instance.CreateDateTime();
-            var createDate = (DateTime?)SetDbNullToNull(dr[((MemberInfo)(props[4])).Name]);
+            //entity.ShortName = (string)SetDbNullToNull(dr[((MemberInfo)(props[1])).Name]);
+            //entity.ThaiName = (string)SetDbNullToNull(dr[((MemberInfo)(props[2])).Name]);
+            //entity.EnglishName = (string)SetDbNullToNull(dr[((MemberInfo)(props[3])).Name]);
+            
 
-            if (createDate.HasValue)
-            {
-                dateTimeCreate.Value = createDate;
-                dateTimeCreate.Validate();
-            }
+            //entity.CreateBy = (string)SetDbNullToNull(dr[((MemberInfo)(props[4])).Name]);
+            //entity.CreateDate = (DateTime)SetDbNullToNull(dr[((MemberInfo)(props[5])).Name]);
 
-            entity.CreateDate = dateTimeCreate;
-            entity.UpdateBy = (string)SetDbNullToNull(dr[((MemberInfo)(props[5])).Name]);
+            //entity.UpdateBy = (string)SetDbNullToNull(dr[((MemberInfo)(props[6])).Name]);
+            //entity.UpdateDate = (DateTime)SetDbNullToNull(dr[((MemberInfo)(props[7])).Name]);
 
-            var dateTimeUpdate = ComponentFactory.Instance.CreateDateTime();
-            var updateDate = (DateTime?)SetDbNullToNull(dr[((MemberInfo)(props[6])).Name]);
+            entity.Id = (Guid)SetDbNullToNull(dr["Id"]);
 
-            if (updateDate.HasValue)
-            {
-                dateTimeUpdate.Value = updateDate;
-                dateTimeUpdate.Validate();
-            }
+            entity.ThaiName = (string)SetDbNullToNull(dr["Name"]);
+            entity.EnglishName = (string)SetDbNullToNull(dr["EnglishName"]);
+            entity.ShortName = (string)SetDbNullToNull(dr["ShortName"]);
 
-            entity.UpdateDate = dateTimeUpdate;
+            entity.CreateBy = (string)SetDbNullToNull(dr["CreateBy"]);
+            entity.CreateDate = (DateTime)SetDbNullToNull(dr["CreateDate"]);
+
+            entity.UpdateBy = (string)SetDbNullToNull(dr["UpdateBy"]);
+            entity.UpdateDate = (DateTime)SetDbNullToNull(dr["UpdateDate"]);
 
             return entity;
         }

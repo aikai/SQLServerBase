@@ -21,9 +21,9 @@ namespace ProjectBase.Utils.Commons
 
         #region ITransactionLog Members
         public virtual string CreateBy { get; set; }
-        public virtual IValueValidation CreateDate { get; set; }
+        public virtual DateTime CreateDate { get; set; }
         public virtual string UpdateBy { get; set; }
-        public virtual IValueValidation UpdateDate { get; set; }
+        public virtual DateTime UpdateDate { get; set; }
         #endregion
 
         public override string ToString()

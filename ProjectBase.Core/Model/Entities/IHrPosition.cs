@@ -16,9 +16,9 @@ namespace ProjectBase.Core.Model
 
         #region TransactionLog
         string CreateBy { get; set; }
-        IValueValidation CreateDate { get; set; }
+        DateTime CreateDate { get; set; }
         string UpdateBy { get; set; }
-        IValueValidation UpdateDate { get; set; }
+        DateTime UpdateDate { get; set; }
         #endregion
 
         bool Equals(object obj);

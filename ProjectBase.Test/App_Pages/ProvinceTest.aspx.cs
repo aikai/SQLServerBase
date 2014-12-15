@@ -65,55 +65,41 @@ namespace ProjectBase.Test
                 {
                     var entity = EntityFactory.CreateProvince();
 
-                    //entity.Id = GridView1.Rows.Count;
                     entity.ThaiName = ((TextBox)GridView1.Rows[0].Cells[3].Controls[0]).Text;
                     entity.EnglishName = ((TextBox)GridView1.Rows[0].Cells[4].Controls[0]).Text;
+                    entity.ShortName = ((TextBox)GridView1.Rows[0].Cells[5].Controls[0]).Text;
 
-                    //var user = ComponentFactory.CreateUserAccount();
-                    //user.UserId = "0402";
+                    #region Create by
+                    entity.CreateBy = "Administrator";
 
-                    //SessionAdapter.User = user;
-
-                    //#region Create by
-                    //entity.CreateBy = SessionAdapter.User;
-
-                    //var createDatetime = ComponentFactory.CreateDateTime();
-                    //createDatetime.Value = DateTime.Now;
-
-                    //entity.CreateDate = createDatetime;
-                    //#endregion
+                    entity.CreateDate = DateTime.Now;
+                    #endregion
 
                     dao.Save(entity);
                 }
                 else
                 {
                     var id = GridView1.DataKeys[e.RowIndex].Value;
-                    //var entity = dao.GetById(id, false);
+                    var entity = dao.GetById(id);
 
-                    //if (entity != null)
-                    //{
-                    //    entity.ThaiName = ((TextBox)GridView1.Rows[e.RowIndex].Cells[3].Controls[0]).Text;
-                    //    entity.EnglishName = ((TextBox)GridView1.Rows[e.RowIndex].Cells[4].Controls[0]).Text;
+                    if (entity != null)
+                    {
+                        entity.ThaiName = ((TextBox)GridView1.Rows[e.RowIndex].Cells[3].Controls[0]).Text;
+                        entity.EnglishName = ((TextBox)GridView1.Rows[e.RowIndex].Cells[4].Controls[0]).Text;
+                        entity.ShortName = ((TextBox)GridView1.Rows[e.RowIndex].Cells[5].Controls[0]).Text;
 
-                        //var user = ComponentFactory.CreateUserAccount();
-                        //user.UserId = "0402";
 
-                        //SessionAdapter.User = user;
+                        #region Update by
+                        entity.UpdateBy = "Administrator";
 
-                        //#region Update by
-                        //entity.UpdateBy = SessionAdapter.User;
+                        entity.UpdateDate = DateTime.Now;
+                        #endregion
 
-                        //var updateDatetime = ComponentFactory.CreateDateTime();
-                        //updateDatetime.Value = DateTime.Now;
-
-                        //entity.UpdateDate = updateDatetime;
-                        //#endregion
-
-                //        dao.Update(entity);
-                //    }
+                        dao.Update(entity);
+                    }
                 }
 
-                //GridView1.EditIndex = -1;
+                GridView1.EditIndex = -1;
                 Search();
             }
             catch (Exception ex)
@@ -155,12 +141,12 @@ namespace ProjectBase.Test
             {
                 var dao = DaoFactory.GetProvinceDao();
                 var id = GridView1.DataKeys[e.RowIndex].Value;
-                //var entity = dao.GetById(id, false);
+                var entity = dao.GetById(id);
 
-                //if (entity != null)
-                //{
-                //    dao.Delete(entity);
-                //}
+                if (entity != null)
+                {
+                    dao.Delete(entity);
+                }
 
                 Search();
             }

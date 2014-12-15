@@ -14,9 +14,9 @@ namespace ProjectBase.Core.Model
         string EnglishName { get; set; }
         IValueValidation PostCode { get; set; }
         string CreateBy { get; set; }
-        IValueValidation CreateDate { get; set; }
+        DateTime CreateDate { get; set; }
         string UpdateBy { get; set; }
-        IValueValidation UpdateDate { get; set; }
+        DateTime UpdateDate { get; set; }
 
         IAmphoe Amphoe { get; set; }
 

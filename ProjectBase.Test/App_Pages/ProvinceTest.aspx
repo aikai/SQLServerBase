@@ -19,6 +19,7 @@
                 <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id" ReadOnly="True" />
                 <asp:BoundField DataField="ThaiName" HeaderText="ThaiName" SortExpression="ThaiName" />
                 <asp:BoundField DataField="EnglishName" HeaderText="EnglishName" SortExpression="EnglishName" />
+                <asp:BoundField DataField="ShortName" HeaderText="ShortName" SortExpression="ShortName" />
                 <asp:BoundField DataField="CreateBy" HeaderText="CreateBy" SortExpression="CreateBy" ReadOnly="True" />
                 <asp:BoundField DataField="CreateDate" HeaderText="CreateDate" SortExpression="CreateDate" ReadOnly="True" />
                 <asp:BoundField DataField="UpdateBy" HeaderText="UpdateBy" SortExpression="UpdateBy" ReadOnly="True" />

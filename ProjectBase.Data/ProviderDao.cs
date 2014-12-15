@@ -105,8 +105,8 @@ namespace ProjectBase.Data
                     cmd.Transaction = tran;
 
                     try
-                    {                       
-                       onUpdate(cmd);
+                    {
+                        onUpdate(cmd);
 
                         tran.Commit();
                     }
@@ -154,9 +154,9 @@ namespace ProjectBase.Data
                 {
                     conn.Open();
 
-                    BuildQueryId(id);
-
                     var cmd = conn.CreateCommand();
+
+                    BuildQueryId(id, cmd);
 
                     // Must assign connection 
                     cmd.Connection = conn;
@@ -233,7 +233,7 @@ namespace ProjectBase.Data
                     // Must assign connection 
                     cmd.Connection = conn;
                     cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = sb.ToString();                    
+                    cmd.CommandText = sb.ToString();
 
                     var dr = ExecuteReader(cmd);
 
@@ -417,7 +417,7 @@ namespace ProjectBase.Data
             return entities;
         }
 
-        protected virtual void BuildQueryId(object id)
+        protected virtual void BuildQueryId(object id, DbCommand cmd)
         {
             throw new NotImplementedException();
         }
