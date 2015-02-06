@@ -94,8 +94,9 @@ namespace ProjectBase.Data
             VerifyAvailableIsNull(entity);
 
             sb.Append("UPDATE [job_Province]");
-            sb.Append(" SET [Id] = @Id, [Name] = @Name, [EnglishName] = @EnglishName, [ShortName] = @ShortName,");
-            sb.Append(" [CreateBy] = @CreateBy, [CreateDate] = @CreateDate, [UpdateBy] = @UpdateBy, [UpdateDate] = @UpdateDate");
+            sb.Append(" SET [Name] = @Name, [EnglishName] = @EnglishName, [ShortName] = @ShortName,");
+            sb.Append(" [UpdateBy] = @UpdateBy, [UpdateDate] = @UpdateDate");
+            sb.Append(" WHERE [Id] = @Id");
 
             var para = cmd.CreateParameter();
             para.ParameterName = "@Id";
@@ -118,18 +119,6 @@ namespace ProjectBase.Data
             para = cmd.CreateParameter();
             para.ParameterName = "@ShortName";
             para.Value = entity.ShortName;
-
-            cmd.Parameters.Add(para);
-
-            para = cmd.CreateParameter();
-            para.ParameterName = "@CreateBy";
-            para.Value = entity.CreateBy;
-
-            cmd.Parameters.Add(para);
-
-            para = cmd.CreateParameter();
-            para.ParameterName = "@CreateDate";
-            para.Value = entity.CreateDate;
 
             cmd.Parameters.Add(para);
 
@@ -160,7 +149,7 @@ namespace ProjectBase.Data
             cmd.Parameters.Add(para);
         }
 
-        protected override IProvince GetEntity(System.Data.IDataReader dr)
+        protected override IProvince CreateEntity(System.Data.IDataReader dr)
         {
             //System.Reflection.PropertyInfo[] propInfos = typeof(IProvince).GetProperties();
             //propInfos.ToList().ForEach(p => 
@@ -182,17 +171,20 @@ namespace ProjectBase.Data
             //entity.UpdateBy = (string)SetDbNullToNull(dr[((MemberInfo)(props[6])).Name]);
             //entity.UpdateDate = (DateTime)SetDbNullToNull(dr[((MemberInfo)(props[7])).Name]);
 
-            entity.Id = (Guid)SetDbNullToNull(dr["Id"]);
+            if (dr != null)
+            {
+                entity.Id = new Guid(Convert.ToString(SetDbNullToNull(dr["Id"])));
 
-            entity.ThaiName = (string)SetDbNullToNull(dr["Name"]);
-            entity.EnglishName = (string)SetDbNullToNull(dr["EnglishName"]);
-            entity.ShortName = (string)SetDbNullToNull(dr["ShortName"]);
+                entity.ThaiName = Convert.ToString(SetDbNullToNull(dr["Name"]));
+                entity.EnglishName = Convert.ToString(SetDbNullToNull(dr["EnglishName"]));
+                entity.ShortName = Convert.ToString(SetDbNullToNull(dr["ShortName"]));
 
-            entity.CreateBy = (string)SetDbNullToNull(dr["CreateBy"]);
-            entity.CreateDate = (DateTime)SetDbNullToNull(dr["CreateDate"]);
+                entity.CreateBy = Convert.ToString(SetDbNullToNull(dr["CreateBy"]));
+                entity.CreateDate = Convert.ToDateTime(SetDbNullToNull(dr["CreateDate"]));
 
-            entity.UpdateBy = (string)SetDbNullToNull(dr["UpdateBy"]);
-            entity.UpdateDate = (DateTime)SetDbNullToNull(dr["UpdateDate"]);
+                entity.UpdateBy = Convert.ToString(SetDbNullToNull(dr["UpdateBy"]));
+                entity.UpdateDate = Convert.ToDateTime(SetDbNullToNull(dr["UpdateDate"])); 
+            }
 
             return entity;
         }

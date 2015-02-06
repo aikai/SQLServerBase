@@ -13,7 +13,7 @@ namespace ProjectBase.Core
         IList<T> GetInIds(object[] ids);
         IList<T> GetByParent(object parentId);
 
-        object Save(T entity);
+        void Save(T entity);
         void Update(T entity);
         void Delete(T entity);
         void Delete(T[] entities);

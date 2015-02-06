@@ -286,13 +286,12 @@ namespace ProjectBase.Data
         /// For entities that have assigned ID's, you must explicitly call Save to add a new one.
         /// See http://www.hibernate.org/hib_docs/reference/en/html/mapping.html#mapping-declaration-id-assigned.
         /// </summary>
-        public virtual object Save(T entity)
+        public virtual void Save(T entity)
         {
             try
             {
-                if (VerifyAvailableIsNull(entity)) return null;
+                if (VerifyAvailableIsNull(entity)) return;
 
-                object id = null;
                 Update(delegate(DbCommand cmd)
                 {
                     BuildQuerySave(entity, cmd);
@@ -300,9 +299,8 @@ namespace ProjectBase.Data
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = sb.ToString();
 
-                    id = ExecuteScalar(cmd);
+                    ExecuteNonQuery(cmd);
                 });
-                return id;
             }
             catch (Exception ex)
             {
@@ -398,20 +396,34 @@ namespace ProjectBase.Data
             throw new NotImplementedException();
         }
 
-        protected virtual T GetEntity(IDataReader dr)
+        protected virtual T CreateEntity(IDataReader dr)
         {
             throw new NotImplementedException();
         }
 
+        protected virtual T GetEntity(IDataReader dr)
+        {
+            if (VerifyAvailableIsNull(dr)) return default(T);
+
+            T entity = null;
+
+            while (dr.Read())
+            {
+                entity = CreateEntity(dr);
+            }
+
+            return entity;
+        }
+
         protected virtual IList<T> GetEntities(IDataReader dr)
         {
-            VerifyAvailableIsNull(dr);
+            if (VerifyAvailableIsNull(dr)) return default(IList<T>);
 
             var entities = new List<T>();
 
             while (dr.Read())
             {
-                entities.Add(GetEntity(dr));
+                entities.Add(CreateEntity(dr));
             }
 
             return entities;
